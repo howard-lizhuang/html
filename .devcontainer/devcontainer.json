@@ -1,0 +1,21 @@
+{
+    "name": "C# Windows Dev Container",
+    "image": "mcr.microsoft.com/windows/servercore:ltsc2019", // 使用 Windows Server Core 镜像作为基础
+    "build": {
+        "dockerfile": "Dockerfile", // 假设使用 Dockerfile 进行额外构建步骤
+        "args": {
+            "VARIANT": "sdk" // 可以根据需要调整，例如选择不同的.NET 版本或工具集变体
+        }
+    },
+    "settings": {
+        "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe" // 设置终端为 Windows 的 cmd
+    },
+    "extensions": [
+        "ms - dotnettools.csharp" // 推荐安装的 VS Code 扩展，用于 C# 开发
+    ],
+    "postCreateCommand": "powershell.exe -Command \"& { Install-Module -Name NuGet -Force; Install-PackageProvider -Name NuGet -Force; }\"", // 在容器创建后安装 NuGet 模块
+    "remoteUser": "ContainerAdministrator", // 使用管理员权限用户
+    "mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" // 根据需要挂载 Docker 套接字（如果项目需要与 Docker 交互）
+    ]
+}
