@@ -1,26 +1,18 @@
-name: Compile Clang.c with gcc Workflow
+name: C/C++ CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
-  compile_job:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install gcc
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc
-
-      - name: Compile clang.c
-        run: |
-          gcc clang.c -o hello
-
-      - name: Test the executable
-        run: |
-         ./hello
+    - uses: actions/checkout@v4
+    - name: gcc
+      run: gcc clang.c -o hello
+    
