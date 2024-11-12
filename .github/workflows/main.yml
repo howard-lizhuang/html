@@ -1,0 +1,26 @@
+name: Compile Clang
+
+on:
+  push:
+    branches:
+      - main  # 可以根据实际情况修改触发的分支，比如改成开发分支等
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 选择在Ubuntu最新版本上运行工作流
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # 检出项目代码
+
+    - name: Install build essentials
+      run: sudo apt-get update && sudo apt-get install -y build-essential  # 安装编译所需的基本工具，如gcc等
+
+    - name: Compile clang.c
+      run: gcc -o clang clang.c  # 使用gcc编译器将clang.c编译成名为clang的可执行文件
+
+    - name: Archive executable
+      uses: actions/upload-artifact@v3  # 将生成的可执行文件上传为工作流的产物，方便后续下载或使用
+      with:
+        name: clang-executable
+        path: clang
