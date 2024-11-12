@@ -2,8 +2,7 @@ name: Compile Clang
 
 on:
   push:
-    branches:[ "master" ]  # 可以根据实际情况修改触发的分支，比如改成开发分支等
-
+    branches: [ "master" ]
 jobs:
   build:
     runs-on: ubuntu-latest  # 选择在Ubuntu最新版本上运行工作流
